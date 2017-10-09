@@ -1,4 +1,4 @@
-def alphabetize_ratings(filename):
+def alphabetize_ratings_from_disk(filename):
     """ Takes a file of restaurants and ratings, returns the contents
     alphabetized.
     """
@@ -15,9 +15,28 @@ def alphabetize_ratings(filename):
         r_name, r_rating = line.split(':')
         restaurants[r_name] = restaurants.get(r_name, r_rating)
 
+    return restaurants
+
+
+def print_ratings(dictionary):
+    """ Sorts and prints the contents of the dictionary.
+    """
+
     # Loops through dict and prints sorted, formatted key-value pairs
-    for r_name, r_rating in sorted(restaurants.items()):
+    for r_name, r_rating in sorted(dictionary.items()):
         print '{} is rated at {}.'.format(r_name, r_rating)
 
 
-alphabetize_ratings('scores.txt')
+def add_restaurant_rating():
+    """ User inputs restaurant name and rating, adds to existing dictionary.
+
+    """
+
+    restaurant_name = raw_input("Enter the restaurant name to rate: ")
+    restaurant_rating = raw_input("Enter the rating (1 to 5) for the restaurant: ")
+    rest_dict[restaurant_name] = restaurant_rating
+
+
+rest_dict = alphabetize_ratings_from_disk('scores.txt')
+add_restaurant_rating()
+print_ratings(rest_dict)
